@@ -28,7 +28,7 @@ local function delimit(s, sep) return (gsub(snake(s), "_", sep or "")) end
 function M.acronym(s)  return (gsub(map(normalize(s), function(f) return upper(f) end), "_", "")) end
 function M.title(s)    return (gsub(map(normalize(s), function(f, r) return upper(f) .. lower(r) end), "_", " ")) end
 function M.constant(s) return upper(snake(s)) end
-function M.pascal(s)   return (gsub(camel(s), "^(%a)", upper)) end
+function M.pascal(s)   return (gsub(camel(s), "^%a", upper)) end
 function M.kebab(s)    return delimit(s, "-") end
 function M.dot(s)      return delimit(s, ".") end
 function M.space(s)    return delimit(s, " ") end
