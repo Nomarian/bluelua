@@ -236,17 +236,11 @@ function M.isspace(s)
   return find(s, "^%s+$") == 1
 end
 
+-- all words start with uppercase
 function M.istitle(s)
-  local has = false
-  for word in gmatch(s, "%a+") do
-    local first = sub(word, 1, 1)
-    local rest = sub(word, 2)
-    if first ~= upper(first) or rest ~= lower(rest) then
-      return false
-    end
-    has = true
-  end
-  return has
+  return find(s, '%u') -- there's uppercase
+    and (find(s, '%f[%a]%l') == nil)
+    -- starting alphabet character cannot be lowercase
 end
 
 function M.isupper(s)
@@ -583,9 +577,7 @@ function M.startswith(s, prefix, start, stop)
 end
 
 function M.title(s)
-  return (gsub(lower(s), "(%a)(%w*)", function(f, r)
-    return upper(f) .. r
-  end))
+  return (gsub(s, "%f[%a]%l", upper))
 end
 
 function M.translate(s, table_map)
